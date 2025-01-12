@@ -10,12 +10,12 @@ const User = require('../models/User');
 // ✅ Updated Redis connection to port 6380
 require('dotenv').config();
 
-// ✅ Updated Redis connection using environment variable
 const connection = {
     connection: {
-        url: process.env.REDIS_URL  // 🔑 Use Internal Redis URL
+        url: process.env.REDIS_URL,  // Use the Redis URL from Render
     }
 };
+
 // ✅ Create a queue for evaluation jobs
 const evaluationQueue = new Queue('evaluation', { connection });
 
