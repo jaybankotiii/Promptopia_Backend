@@ -1,0 +1,9 @@
+pandas
+openpyxl
+numpy
+sentence-transformers
+openai
+tiktoken
+requests
+anthropic
+google-generativeai
