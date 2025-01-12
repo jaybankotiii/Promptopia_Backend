@@ -16,14 +16,14 @@ from dotenv import load_dotenv
 # Load variables from .env
 load_dotenv()
 
-# Access the API keys
-
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress TensorFlow logs
 os.environ['GRPC_VERBOSITY'] = 'ERROR'    # Suppress GRPC warnings
 os.environ['GRPC_CPP_ENABLE_LOGGING'] = '0'
 
 
 # Constants for API keys
+
+# Access the API keys
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 CLAUDE_API_KEY = os.getenv("CLAUDE_API_KEY")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
@@ -368,4 +368,3 @@ if __name__ == "__main__":
         error_message = ''.join(traceback.format_exception(None, e, e.__traceback__))
         print(json.dumps({"error": error_message}))
         sys.exit(1)
-

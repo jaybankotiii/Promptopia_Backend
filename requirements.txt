@@ -7,3 +7,4 @@ tiktoken
 requests
 anthropic
 google-generativeai
+python-dotenv
