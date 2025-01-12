@@ -11,7 +11,7 @@ dotenv.config();
 
 // ✅ Install Python Dependencies (Optional in Production)
 console.log("🔄 Checking Python dependencies...");
-exec('python -m pip install -r requirements.txt', (error, stdout, stderr) => {
+exec('python -m pip install --upgrade pip && python -m pip install --break-system-packages -r requirements.txt', (error, stdout, stderr) => {
     if (error) {
         console.error(`❌ Error installing Python dependencies: ${error.message}`);
         return;
