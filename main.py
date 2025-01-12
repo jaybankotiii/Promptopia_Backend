@@ -11,7 +11,12 @@ import google.generativeai as genai
 import sys
 import json
 import os
+from dotenv import load_dotenv
 
+# Load variables from .env
+load_dotenv()
+
+# Access the API keys
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress TensorFlow logs
 os.environ['GRPC_VERBOSITY'] = 'ERROR'    # Suppress GRPC warnings
@@ -19,9 +24,9 @@ os.environ['GRPC_CPP_ENABLE_LOGGING'] = '0'
 
 
 # Constants for API keys
-OPENAI_API_KEY = "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"
-CLAUDE_API_KEY = "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"
-GEMINI_API_KEY = "AIzaSyBZqskO07UVu_yHZ6lCE-MSj5fG5e1KvYE"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+CLAUDE_API_KEY = os.getenv("CLAUDE_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 openai_client = OpenAI(
     api_key=OPENAI_API_KEY,  # This is the default and can be omitted
