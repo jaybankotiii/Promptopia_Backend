@@ -33,8 +33,13 @@ const evaluationWorker = new Worker('evaluation', async (job) => {
         await User.findByIdAndUpdate(job.data.userId, { isEvaluated: false });
 
 
-        const pythonPath = path.join(__dirname, 'venv', 'bin', 'python');  // Adjust if needed
-        const pythonProcess = spawn(pythonPath, ['main.py']);
+        const pythonPath = path.join(__dirname, 'venv', 'bin', 'python');
+        const scriptPath = path.join(__dirname, 'main.py');
+
+        console.log(`🚀 Using Python from: ${pythonPath}`);
+        console.log(`📂 Running Script: ${scriptPath}`);
+
+        const pythonProcess = spawn(pythonPath, [scriptPath]);
 
         pythonProcess.stdin.write(JSON.stringify(job.data.prompts));
         pythonProcess.stdin.end();
