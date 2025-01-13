@@ -28,8 +28,8 @@ const app = express();
 
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://promptopia-backend.onrender.com'],
-    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+    origin: ['https://promptopia-frontend.onrender.com', 'http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true
 }));
 app.use(express.json());
