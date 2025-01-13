@@ -5,13 +5,17 @@ const mongoose = require('mongoose');  // ✅ FIX: Import mongoose
 const connectDB = require('./config/database');  // MongoDB connection
 const authRoutes = require('./routes/auth');
 const promptRoutes = require('./routes/prompt');
-const { exec } = require('child_process');
 
 dotenv.config();
 
 const app = express();
-// app.use(cors());
+const { spawn } = require('child_process');
+const path = require('path');
 
+const pythonPath = path.join(__dirname, 'venv', 'bin', 'python');  // Adjust if needed
+
+// ✅ Updated spawn command
+const pythonProcess = spawn(pythonPath, ['main.py']);
 
 app.use(cors({
     origin: ['https://promptopia-frontend.onrender.com', 'http://localhost:3000'],
