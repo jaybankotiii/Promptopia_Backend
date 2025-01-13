@@ -33,8 +33,8 @@ const evaluationWorker = new Worker('evaluation', async (job) => {
         await User.findByIdAndUpdate(job.data.userId, { isEvaluated: false });
 
 
-        const pythonPath = path.join(__dirname, 'venv', 'bin', 'python');
-        const scriptPath = path.join(__dirname, 'main.py');
+        const pythonPath = path.join(__dirname, '..', 'venv', 'bin', 'python');
+        const scriptPath = path.join(__dirname, '..', 'main.py');
 
         console.log(`🚀 Using Python from: ${pythonPath}`);
         console.log(`📂 Running Script: ${scriptPath}`);
