@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-# Install Node.js dependencies
+echo "🔄 Installing Node.js dependencies..."
 npm install
 
-# Set up Python virtual environment and install dependencies
+echo "🐍 Setting up Python environment..."
 python3 -m venv venv
 source venv/bin/activate
+
+echo "📦 Installing Python dependencies..."
 pip install --no-cache-dir -r requirements.txt
