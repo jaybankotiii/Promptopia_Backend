@@ -24,7 +24,14 @@ exec('python -m pip install --upgrade pip && python -m pip install --break-syste
 });
 
 const app = express();
-app.use(cors());
+// app.use(cors());
+
+
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://promptopia-backend.onrender.com'],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+    credentials: true
+}));
 app.use(express.json());
 
 // ✅ Routes
