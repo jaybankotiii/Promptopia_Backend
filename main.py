@@ -13,8 +13,6 @@ import json
 import os
 from dotenv import load_dotenv
 
-print(sys.executable)
-print(sys.path)
 
 # Load variables from .env
 load_dotenv()
