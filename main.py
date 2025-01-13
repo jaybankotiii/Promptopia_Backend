@@ -1,5 +1,7 @@
 import time
+
 import pandas as pd
+print("✅ Pandas imported successfully!")
 import numpy as np
 from sentence_transformers import SentenceTransformer
 from openai import OpenAI

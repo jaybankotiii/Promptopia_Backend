@@ -46,6 +46,11 @@ const evaluationWorker = new Worker('evaluation', async (job) => {
 
         let result = '';
 
+        // ✅ Capture Spawn Errors
+        pythonProcess.on('error', (err) => {
+            console.error(`❌ Failed to start Python process: ${err}`);
+        });
+
         pythonProcess.stdout.on('data', (data) => {
             const output = data.toString();
 
