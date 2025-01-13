@@ -6,6 +6,7 @@ const Comparison = require('../models/Comparison');
 const GoldStandard = require('../models/GoldStandard');
 const Decision = require('../models/Decision');
 const User = require('../models/User');
+const path = require("path");
 
 require('dotenv').config();
 
@@ -31,8 +32,9 @@ const evaluationWorker = new Worker('evaluation', async (job) => {
     try {
         await User.findByIdAndUpdate(job.data.userId, { isEvaluated: false });
 
-        const pythonProcess = spawn('poetry', ['run', 'python', 'main.py']);
 
+        const pythonPath = path.join(__dirname, 'venv', 'bin', 'python');  // Adjust if needed
+        const pythonProcess = spawn(pythonPath, ['main.py']);
 
         pythonProcess.stdin.write(JSON.stringify(job.data.prompts));
         pythonProcess.stdin.end();
