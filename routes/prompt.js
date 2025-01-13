@@ -84,6 +84,10 @@ router.post('/evaluate', auth, async (req, res) => {
                 prompt: p.prompt,
                 goldenModel: p.goldenModel
             }))
+        }).then(() => {
+            console.log(`📝 Job added to queue for user ${req.user.id}`);
+        }).catch((err) => {
+            console.error('❌ Failed to add job to queue:', err.message);
         });
 
         res.status(200).json({ message: 'Evaluation started. This may take a while.' });

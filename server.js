@@ -5,11 +5,11 @@ const mongoose = require('mongoose');  // ✅ FIX: Import mongoose
 const connectDB = require('./config/database');  // MongoDB connection
 const authRoutes = require('./routes/auth');
 const promptRoutes = require('./routes/prompt');
+const { spawn } = require('child_process');
 
 dotenv.config();
 
 const app = express();
-const { spawn } = require('child_process');
 const path = require('path');
 
 const pythonPath = path.join(__dirname, 'venv', 'bin', 'python');  // Adjust if needed
@@ -22,6 +22,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true
 }));
+
 app.use(express.json());
 
 // ✅ Routes

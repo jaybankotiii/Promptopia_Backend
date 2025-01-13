@@ -19,7 +19,11 @@ const connection = {
 
 const evaluationQueue = new Queue('evaluation', { connection });
 console.log(`✅ Connected to Redis using URL: ${process.env.REDIS_URL}`);
-
+evaluationQueue.waitUntilReady().then(() => {
+    console.log('✅ Connected to Redis and Queue is ready');
+}).catch(err => {
+    console.error('❌ Failed to connect to Redis:', err);
+});
 // ✅ Worker to process evaluation jobs
 const evaluationWorker = new Worker('evaluation', async (job) => {
     console.log(`🚀 Processing job for user ${job.data.userId}`);
