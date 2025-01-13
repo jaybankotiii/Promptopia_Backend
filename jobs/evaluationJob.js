@@ -9,18 +9,15 @@ const User = require('../models/User');
 
 require('dotenv').config();
 
-console.log(`Connecting Redis ${process.env.REDIS_URL}`);
 const connection = {
-    connection: {
-        url: process.env.REDIS_URL
-    }
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
+    username: process.env.REDIS_USERNAME,
+    password: process.env.REDIS_PASSWORD,
+    tls: false
 };
 
-console.log(connection)
-
-// ✅ Create a queue for evaluation jobs
 const evaluationQueue = new Queue('evaluation', { connection });
-console.log(evaluationQueue)
 console.log(`✅ Connected to Redis using URL: ${process.env.REDIS_URL}`);
 
 // ✅ Worker to process evaluation jobs
