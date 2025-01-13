@@ -31,7 +31,8 @@ const evaluationWorker = new Worker('evaluation', async (job) => {
     try {
         await User.findByIdAndUpdate(job.data.userId, { isEvaluated: false });
 
-        const pythonProcess = spawn('python', ['main.py']);
+        const pythonProcess = spawn('poetry', ['run', 'python', 'main.py']);
+
 
         pythonProcess.stdin.write(JSON.stringify(job.data.prompts));
         pythonProcess.stdin.end();
