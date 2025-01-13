@@ -7,53 +7,50 @@ const GoldStandard = require('../models/GoldStandard');
 const Decision = require('../models/Decision');
 const User = require('../models/User');
 
-// ✅ Updated Redis connection to port 6380
 require('dotenv').config();
 
+console.log(`Connecting Redis ${process.env.REDIS_URL}`);
 const connection = {
     connection: {
-        url: process.env.REDIS_URL,  // Use the Redis URL from Render
+        url: process.env.REDIS_URL
     }
 };
 
+console.log(connection)
+
 // ✅ Create a queue for evaluation jobs
 const evaluationQueue = new Queue('evaluation', { connection });
+console.log(evaluationQueue)
+console.log(`✅ Connected to Redis using URL: ${process.env.REDIS_URL}`);
 
 // ✅ Worker to process evaluation jobs
 const evaluationWorker = new Worker('evaluation', async (job) => {
     console.log(`🚀 Processing job for user ${job.data.userId}`);
 
     try {
-        // ✅ Mark user's evaluation as started
         await User.findByIdAndUpdate(job.data.userId, { isEvaluated: false });
 
-        // ✅ Spawn Python process
         const pythonProcess = spawn('python', ['main.py']);
 
-        // ✅ Send data to Python script
         pythonProcess.stdin.write(JSON.stringify(job.data.prompts));
         pythonProcess.stdin.end();
 
         let result = '';
 
-        // ✅ Capture Python output
         pythonProcess.stdout.on('data', (data) => {
             const output = data.toString();
 
-            // ✅ Check if the output is JSON
             if (output.trim().startsWith('{') || output.trim().startsWith('[')) {
-                result += output;  // ✅ Append JSON content
+                result += output;
             } else {
                 console.log(`📥 Python Debug Output: ${output}`);  // Log non-JSON debug output
             }
         });
 
-        // ✅ Capture Python errors
         pythonProcess.stderr.on('data', (data) => {
             console.error(`❌ Python Error: ${data.toString()}`);
         });
 
-        // ✅ Handle Python process close
         pythonProcess.on('close', async code => {
             if (code === 0) {
                 let parsedResult;
